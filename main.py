@@ -7,6 +7,9 @@ url = (
 file_path = "the-verdict.txt" 
 urllib.request.urlretrieve(url, file_path)
 
+from importlib.metadata import version 
+import tiktoken
+
 class SimpleTokenizerV2: 
     def __init__(self, vocab):
         self.str_to_int = vocab
@@ -62,6 +65,13 @@ def main():
     tokenizer = SimpleTokenizerV2(vocab) 
     print(tokenizer.encode(text))
     print(tokenizer.decode(tokenizer.encode(text)))
+
+    tokenizer = tiktoken.get_encoding("gpt2")
+    text = ("Akwirw ier.”" ) 
+    integers = tokenizer.encode(text, allowed_special={"<|endoftext|>"}) 
+    print(integers)
+    strings = tokenizer.decode(integers) 
+    print(strings)
 
 if __name__ == "__main__":
     main()
